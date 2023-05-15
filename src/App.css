@@ -1,0 +1,18 @@
+.App-light{
+  background-color: skyblue;
+}
+
+.App-dark{
+  background-color: dimgrey;
+}
+
+.on{
+  color: cyan;
+}
+
+.off{
+  color: blanchedalmond;
+}
+.App a{
+  text-decoration: none;
+}

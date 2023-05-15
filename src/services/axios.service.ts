@@ -1,6 +1,6 @@
-import axios, {AxiosError} from 'axios';
+import axios from 'axios';
 
-import {baseURL, urls} from '../constants';
+import {baseURL} from '../constants';
 
 
 
@@ -15,7 +15,10 @@ axiosService.interceptors.request.use(config => {
         config.headers.Authorization = `Bearer ${access}`
     }
     return config
-})
+},function (error) {
+    return Promise.reject((error))
+    }
+    )
 
 
 

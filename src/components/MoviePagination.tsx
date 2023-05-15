@@ -6,22 +6,23 @@ import {useAppSelector} from "../hooks";
 
 
 const MoviePagination: FC = () => {
-//     const {prev,next} = useAppSelector(state => state.movieReducer);
-// const [,setQuery] = useSearchParams();
-//
-// const prevPage = () => {
-//   setQuery(prev1 => ({...prev1,page:+prev1.get('page')-1}))
-// }
-//
-//     const nextPage = () => {
-//         setQuery(prev1 => ({...prev1,page:+prev1.get('page')+1}))
-//     }
+    const {page,totalPages} = useAppSelector(state => state.movieReducer);
+
+const [,setQuery] = useSearchParams();
+
+const prev = () => {
+  setQuery(prev1 => ({...prev1,page:+prev1.get('page')-1}))
+}
+
+    const next = () => {
+        setQuery(prev1 => ({...prev1,page:+prev1.get('page')+1}))
+    }
 
 
     return (
         <div>
-            {/*<button disabled={(!prev)} onClick={prevPage}>prev</button>*/}
-            {/*<button disabled={(!next)} onClick={nextPage}>next</button>*/}
+            <button disabled={(page===1)} onClick={prev}>prev</button>
+            <button disabled={(page===totalPages)} onClick={next}>next</button>
         </div>
     );
 };
