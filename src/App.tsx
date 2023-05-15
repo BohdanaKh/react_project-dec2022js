@@ -2,8 +2,8 @@ import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 
 import {MainLayout} from "./layouts";
-import {MoviesPage} from "./pages/MoviesPage";
-import {GenresPage} from "./pages/GenresPage";
+import {MoviesPage} from "./pages";
+import {GenresPage} from "./pages";
 
 const App = () => {
 

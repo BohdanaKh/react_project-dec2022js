@@ -1,5 +1,6 @@
 import {AxiosError} from "axios";
 import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@reduxjs/toolkit";
+import {useSearchParams} from "react-router-dom";
 
 import {movieService} from "../../services";
 import {IError, IMovie, IPagination} from "../../interfaces";
@@ -7,15 +8,20 @@ import {IError, IMovie, IPagination} from "../../interfaces";
 
 interface IState {
     movies: IMovie[],
-    prev:string,
-    next:string,
+    page:number,
+    totalPages:number,
+    // prev:number;
+    // next:number;
     errors: IError,
 }
 
 const initialState:IState = {
     movies:[],
-    prev:null,
-    next:null,
+    page:1,
+    totalPages:null,
+
+    // prev: null,
+    // next: null,
     errors: null,
 }
 
@@ -44,10 +50,10 @@ const slice = createSlice({
     extraReducers: builder =>
         builder
             .addCase(getAll.fulfilled, (state, action) => {
-                const {prev, next, results} = action.payload;
+                const {page,total_pages,results} = action.payload;
                 state.movies = results
-                state.prev = prev
-                state.next = next
+                state.page = page
+                state.totalPages = total_pages
             })
 
             .addMatcher(isFulfilled(), state => {

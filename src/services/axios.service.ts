@@ -15,7 +15,6 @@ axiosService.interceptors.request.use(config => {
         config.headers.Authorization = `Bearer ${access}`
     }
     return config
-    console.log(config);
 })
 
 

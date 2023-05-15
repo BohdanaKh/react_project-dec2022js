@@ -1,16 +1,20 @@
 import {FC} from 'react';
+import {useNavigate} from "react-router-dom";
 
 import css from './Header.module.css'
 
-interface IProps {
 
-}
 
-const Header: FC<IProps> = () => {
+const Header: FC = () => {
+    const navigate = useNavigate();
 
     return (
         <div className={css.Header}>
-            Header
+            <div>MOVIES</div>
+
+            <button onClick={() => navigate('movies')}>Movies</button>
+            <button onClick={() => navigate('genres')}>Genres</button>
+
         </div>
     );
 };

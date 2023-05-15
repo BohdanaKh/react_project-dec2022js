@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {MoviesList} from "../components";
+import {MoviePagination, MoviesList} from "../components";
 
 
 
@@ -9,6 +9,7 @@ const MoviesPage:FC = () => {
     return (
         <div>
             <MoviesList/>
+            <MoviePagination/>
         </div>
     );
 };
