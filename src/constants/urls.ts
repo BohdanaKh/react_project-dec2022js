@@ -1,11 +1,11 @@
-const baseURL = 'https://api.themoviedb.org/3'
+const baseURL = 'https://api.themoviedb.org/3';
+const posterBaseURL = 'https://image.tmdb.org/t/p/w500';
 
 // https://api.themoviedb.org/3/find/638974
 
 const auth = '/authentication';
 const movies = '/discover/movie';
-const findMovie = '/movie';
-
+const movie = '/movie';
 const genres = '/genre/movie/list';
 
 const urls = {
@@ -14,7 +14,10 @@ const urls = {
     },
     movies:{
         movies,
-        byId: (id:string):string => `${findMovie}/${id}`
+        byGenreId: (genre_id:number):string => `${movies}/${genre_id}`
+    },
+    movie:{
+        byId: (id:string):string => `${movie}/${id}`,
     },
     genres:{
         genres
@@ -24,6 +27,7 @@ const urls = {
 
 export {
     baseURL,
+    posterBaseURL,
     urls
 }
 

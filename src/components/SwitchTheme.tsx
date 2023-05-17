@@ -1,16 +1,17 @@
 import {FC} from 'react';
 
-import {useAppDispatch} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {themeActions} from "../redux";
 
 
 const SwitchTheme: FC = () => {
+    const {darkMode} = useAppSelector(state => state.themeReducer);
     const dispatch = useAppDispatch();
 
 
     return (
         <div>
-            <button onClick={() => dispatch(themeActions.toggleTheme())} >Light/Dark</button>
+            <button className={'toggle_theme'} onClick={() => dispatch(themeActions.toggleTheme())} >{darkMode?'Dark':'Light'}</button>
         </div>
     );
 };

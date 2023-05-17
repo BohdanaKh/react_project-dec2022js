@@ -9,7 +9,9 @@ const MoviesPage:FC = () => {
 
     return (
         <div>
-            <Outlet/>
+            <div className={'banner'}>
+
+            </div>
             <MoviesList/>
             <MoviePagination/>
         </div>

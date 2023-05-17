@@ -1,27 +1,52 @@
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
+
 
 import {IMovie} from "../interfaces";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {posterBaseURL} from "../constants";
+import {movieService} from "../services";
+import {movieActions} from "../redux";
+import {useAppDispatch} from "../hooks";
 
 interface IProps {
 movie: IMovie
 }
 
 const MoviesListCard: FC<IProps> = ({movie}) => {
-    // const navigate = useNavigate();
-    const {id, title, overview, vote_average} = movie;
 
+    const [moviesByGenre,setMoviesByGenre] = useState(null);
+
+    // const navigate = useNavigate();
+    const {id, title, vote_average, backdrop_path} = movie;
+
+
+    // useEffect(() => {
+    //     movieService.getById(genre_id).then(value => value.data).then(value => dispatch(movieActions.setMoviesByGenre(value)))
+    // }, [genre_id])
 
 
     return (
-        <div>
+        <div className={'movie_card'}>
+            {/*{moviesByGenre &&(*/}
 
-            <Link to={`${id}`}>
-                <div>{title}</div>
-                <div>{vote_average}</div>
-                <div>{overview}</div>
-                <hr/>
+            <Link to={`/movie/${id}`}>
+                <img className={'movie_image'} src={ posterBaseURL+`${backdrop_path}`} alt={title}/>
+                <div>
+                    <p style={{fontWeight:'bolder'}}>{title}</p>
+                    </div>
+                <div className={'star-rating'}>
+                    {[...Array(10)].map((star,index) => {
+                        index+=0.5;
+                        return(
+                            <span key={index} className={index<=movie.vote_average? 'on' : 'off'}>
+                <span className='star'>&#9733;</span>
+                </span>
+                        );
+                    })}
+                    {vote_average}
+                </div>
             </Link>
+            {/*)}*/}
 
           {/*<div>{title}</div>*/}
           {/*<div>{vote_average}</div>*/}

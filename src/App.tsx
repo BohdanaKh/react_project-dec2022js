@@ -3,9 +3,9 @@ import {Navigate, Route, Routes} from "react-router-dom";
 
 import  './App.css';
 import {MainLayout} from "./layouts";
-import {MovieDetailsPage, MoviesPage} from "./pages";
-import {GenresPage} from "./pages";
+import { MoviesPage} from "./pages";
 import {useAppSelector} from "./hooks";
+import {MovieInfo} from "./components";
 
 const App = () => {
 const {darkMode} = useAppSelector(state => state.themeReducer);
@@ -17,11 +17,11 @@ return (
 
   <Routes>
     <Route path={'/'} element={<MainLayout/>}>
+
       <Route index element={<Navigate to={'movies'}/>}/>
-      <Route path={'movies'} element={<MoviesPage/>}>
-      <Route path={':id'} element={<MovieDetailsPage/>}/>
-        </Route>
-      <Route path={'genres'} element={<GenresPage/>}/>
+      <Route path={'movies'} element={<MoviesPage/>}/>
+      <Route path={'movie/:id'} element={<MovieInfo/>}/>
+
     </Route>
   </Routes>
       </div>

@@ -41,8 +41,8 @@ const getById = createAsyncThunk<IMovie,{id:string}>(
     'movieSlice/getById',
     async ({id},{rejectWithValue}) => {
         try {
-            const {data} = await movieService.getById(id);
-            return data
+            const {data:movie} = await movieService.getById(id);
+            return movie
         } catch (e) {
             const err = e as AxiosError
             return rejectWithValue(err.response.data)
@@ -61,7 +61,13 @@ setMovies: (state, action) => {
     state.movies = results
     state.page = page
     state.totalPages = total_pages
-}
+},
+        // setMoviesByGenre: (state, action) => {
+        //     const {results} = action.payload;
+        //     state.movies = results;
+        //     state.movies.filter( item=>item.genre_ids.includes(16));
+        //
+        // }
     },
     extraReducers: builder =>
         builder

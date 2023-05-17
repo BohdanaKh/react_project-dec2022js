@@ -1,4 +1,5 @@
 import React, {FC, useEffect} from 'react';
+import {Outlet, useNavigate} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {genreActions} from "../redux";
@@ -9,6 +10,7 @@ import {genreActions} from "../redux";
 const GenreBadge: FC= () => {
     const {genres} = useAppSelector(state => state.genreReducer);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(genreActions.getAll())
@@ -16,8 +18,12 @@ const GenreBadge: FC= () => {
 
     console.log(genres);
 
+    // const  handleGenreClick = (id: number) => {
+    //
+    // }
+
     return (
-        <div>
+        <div className={'genres_wrap'}>
             {
                 genres.map((genre) => (
                     <div key={genre.id}>
@@ -26,10 +32,13 @@ const GenreBadge: FC= () => {
                             // checked={}
                             onChange={() => {}}
                         />
-                        {genre.name}
+                       <button type={'button'} className={'genre_button'} onClick={()=>navigate(`${genre.id}`)}>{genre.name}
+                    </button>
                     </div>)
                 )
             }
+
+            <Outlet/>
         </div>
     );
 };

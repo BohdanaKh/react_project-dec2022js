@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-import {baseURL} from '../constants';
+import {baseURL, posterBaseURL} from '../constants';
+
 
 
 
 
 const axiosService = axios.create({baseURL});
+// @ts-ignore
+const posterAxiosService = axios.create({posterBaseURL});
 
 
 axiosService.interceptors.request.use(config => {
@@ -23,5 +26,6 @@ axiosService.interceptors.request.use(config => {
 
 
 export {
-    axiosService
+    axiosService,
+    posterAxiosService
 }

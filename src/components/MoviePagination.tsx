@@ -20,7 +20,7 @@ const prev = () => {
 
 
     return (
-        <div>
+        <div className={'pagination'}>
             <button disabled={(page===1)} onClick={prev}>prev</button>
             <button disabled={(page===totalPages)} onClick={next}>next</button>
         </div>

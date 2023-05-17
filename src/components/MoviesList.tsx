@@ -1,10 +1,11 @@
-import {FC, useEffect} from 'react';
-import {Link, Outlet, useLocation, useSearchParams} from "react-router-dom";
+import {FC, useEffect, useState} from 'react';
+import {Link, Outlet, useLocation, useParams, useSearchParams} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {movieActions} from "../redux";
 import {MoviesListCard} from "./MoviesListCard";
 import {movieService} from "../services";
+import {GenreBadge} from "./GenreBadge";
 
 
 
@@ -12,8 +13,10 @@ const MoviesList: FC = () => {
     const {movies} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
     const [query,setQuery] = useSearchParams();
+    // const {genre_id} = useParams();
 
-    console.log(query);
+
+
 
 
     useEffect(() => {
@@ -24,6 +27,11 @@ const MoviesList: FC = () => {
     useEffect(() => {
         movieService.getAll(+query.get('page')).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
     }, [query])
+
+// useEffect(()=>{
+//     dispatch(movieActions.setMoviesByGenre(16))
+// },[])
+
 
 
     // useEffect(() => {
@@ -44,14 +52,18 @@ const MoviesList: FC = () => {
 
     return (
 
-        <div>
+        <div className={'container'}>
 
+            <div className={'genres_container'}>
+                <GenreBadge/>
+            </div>
+<div className={'movie_list_container'}>
             {
                 movies.map(movie => <MoviesListCard key={movie.id}  movie={movie}/>)
             }
 
-            
 
+</div>
         </div>
 
 
