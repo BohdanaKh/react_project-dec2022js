@@ -2,6 +2,7 @@ import {AxiosError} from "axios";
 import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@reduxjs/toolkit";
 import {useSearchParams} from "react-router-dom";
 
+
 import {movieService} from "../../services";
 import {IError, IMovie, IPagination} from "../../interfaces";
 
@@ -11,7 +12,9 @@ interface IState {
     movies: IMovie[],
     totalPages:number,
     errors: IError,
-    movie:IMovie
+    movie:IMovie,
+    movieByGenre:IMovie,
+    searchValue:string
 }
 
 const initialState:IState = {
@@ -19,7 +22,9 @@ const initialState:IState = {
     movies:[],
     totalPages:null,
     errors: null,
-    movie:null
+    movie:null,
+    movieByGenre:null,
+    searchValue:null
 }
 
 
@@ -36,13 +41,28 @@ const initialState:IState = {
 //     }
 // )
 
+    // (+query.get('page')+1)
+
+const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,string>(
+    'movieSlice/getAll',
+    async (id,{rejectWithValue}) => {
+        // const [query] = useSearchParams();
+        try {
+            const {data:movies} = await movieService.getByGenre(1,id);
+            return movies
+        } catch (e) {
+           const err = e as AxiosError
+            return rejectWithValue(err.response.data)
+        }
+    }
+)
 
 const getById = createAsyncThunk<IMovie,{id:string}>(
     'movieSlice/getById',
     async ({id},{rejectWithValue}) => {
-        try {
-            const {data:movie} = await movieService.getById(id);
-            return movie
+            try {
+                const {data:movie} = await movieService.getById(id);
+                return movie
         } catch (e) {
             const err = e as AxiosError
             return rejectWithValue(err.response.data)
@@ -52,23 +72,52 @@ const getById = createAsyncThunk<IMovie,{id:string}>(
 
 
 
+
+
+// const searchByValue = createAsyncThunk<IPagination<IMovie[]>,> (
+//     'movieSlice/searchByValue',
+//     async ({searchValue},{rejectWithValue}) => {
+//         try {
+//             const {data} = await movieService.searchByValue(searchValue);
+//             return data
+//         } catch (e) {
+//             const err = e as AxiosError
+//             return rejectWithValue(err.response.data)
+//         }
+//     }
+// )
+
+
+
 const slice = createSlice({
     name: 'movieSlice',
     initialState,
     reducers: {
-setMovies: (state, action) => {
-    const {page,total_pages,results} = action.payload;
+        setMovies: (state, action) => {
+            const {page, total_pages, results} = action.payload;
+            state.movies = results
+            state.page = page
+            state.totalPages = total_pages
+        },
+        setMovieByGenre: (state, action) => {
+            state.movieByGenre = action.payload;
+            //     state.movies.filter( item=>item.genre_ids.includes(16));
+            //
+        },
+        // setSearchValue: (state, action) => {
+        //     state.searchValue = action.payload;
+        // },
+
+        searchByValue: (state, action) =>{
+    const {page, total_pages, results} = action.payload;
     state.movies = results
-    state.page = page
-    state.totalPages = total_pages
-},
-        // setMoviesByGenre: (state, action) => {
-        //     const {results} = action.payload;
-        //     state.movies = results;
-        //     state.movies.filter( item=>item.genre_ids.includes(16));
-        //
-        // }
+            state.page = page
+            state.totalPages = total_pages
+}
     },
+
+
+
     extraReducers: builder =>
         builder
             // .addCase(getAll.fulfilled, (state, action) => {
@@ -77,10 +126,15 @@ setMovies: (state, action) => {
             //     state.page = page
             //     state.totalPages = total_pages
             // })
+            .addCase(getMovieByGenre.fulfilled, (state, action) => {
+                const {page,total_pages,results} = action.payload;
+                    state.movies = results
+                    state.page = page
+                    state.totalPages = total_pages
+            })
 
             .addCase(getById.fulfilled, (state, action) => {
                 state.movie = action.payload;
-
             })
 
 
@@ -98,8 +152,8 @@ const {actions, reducer:movieReducer} = slice;
 
 const movieActions = {
     ...actions,
-    // getAll,
-    getById
+    getMovieByGenre,
+    getById,
 }
 
 export {

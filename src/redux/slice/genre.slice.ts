@@ -6,12 +6,14 @@ import {genresService} from "../../services";
 
 interface IState {
     genres: IGenre[],
-    errors: IError
+    errors: IError,
+    genreId:number
 }
 
 const initialState:IState = {
     genres: [],
-    errors: null
+    errors: null,
+    genreId:null
 }
 
 // @ts-ignore
@@ -31,7 +33,9 @@ const slice = createSlice({
     name: 'genreSlice',
     initialState,
     reducers: {
-
+setGenreId:(state, action) => {
+    state.genreId = action.payload;
+},
     },
     extraReducers: builder =>
         builder

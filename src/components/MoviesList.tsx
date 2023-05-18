@@ -1,5 +1,5 @@
-import {FC, useEffect, useState} from 'react';
-import {Link, Outlet, useLocation, useParams, useSearchParams} from "react-router-dom";
+import {FC, useState,useEffect} from 'react';
+import { useSearchParams,useParams} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {movieActions} from "../redux";
@@ -13,26 +13,24 @@ const MoviesList: FC = () => {
     const {movies} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
     const [query,setQuery] = useSearchParams();
-    // const {genre_id} = useParams();
+    const params = useParams();
+    const [movieByGenre, setMovieByGenre] = useState([]);
 
-
-
+    console.log(params);
 
 
     useEffect(() => {
         setQuery(prev =>({...prev,page:'1'}) )
-    },[])
+    },[setQuery])
 
 
     useEffect(() => {
-        movieService.getAll(+query.get('page')).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
-    }, [query])
-
-// useEffect(()=>{
-//     dispatch(movieActions.setMoviesByGenre(16))
-// },[])
+        movieService.getAll(+query.get('page')+1).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
+    }, [dispatch,query])
 
 
+
+    console.log(movies);
 
     // useEffect(() => {
     //     dispatch(movieActions.getAll())

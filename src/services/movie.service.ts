@@ -11,7 +11,17 @@ return axiosService.get(urls.movies.movies, {params:{page}})
 
 getById (id:string):IRes<IMovie> {
      return axiosService.get(urls.movie.byId(id))
+    };
+
+    getByGenre(page: number, genre_id: string):IRes<IPagination<IMovie[]>> {
+        return axiosService.get(urls.movies.movies, {params: { page,
+                with_genres: genre_id}})
     }
+
+searchByValue (searchValue:string):IRes<IMovie[]> {
+    return axiosService.get(urls.searchMovie.searchMovie,{params:{query:searchValue}})
+}
+
 }
 
 

@@ -1,9 +1,9 @@
 import {FC, useEffect, useState} from 'react';
-
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 import {IMovie} from "../interfaces";
-import {Link, useNavigate, useParams} from "react-router-dom";
 import {posterBaseURL} from "../constants";
+import empty from '../../src/images/empty.jpg';
 import {movieService} from "../services";
 import {movieActions} from "../redux";
 import {useAppDispatch} from "../hooks";
@@ -30,7 +30,7 @@ const MoviesListCard: FC<IProps> = ({movie}) => {
             {/*{moviesByGenre &&(*/}
 
             <Link to={`/movie/${id}`}>
-                <img className={'movie_image'} src={ posterBaseURL+`${backdrop_path}`} alt={title}/>
+                <img className={'movie_image'} src={{backdrop_path}? posterBaseURL+`${backdrop_path}` : empty} alt={title}/>
                 <div>
                     <p style={{fontWeight:'bolder'}}>{title}</p>
                     </div>

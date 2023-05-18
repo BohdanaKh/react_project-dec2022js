@@ -7,6 +7,7 @@ const auth = '/authentication';
 const movies = '/discover/movie';
 const movie = '/movie';
 const genres = '/genre/movie/list';
+const searchMovie = '/search/keyword';
 
 const urls = {
     auth:{
@@ -17,10 +18,14 @@ const urls = {
         byGenreId: (genre_id:number):string => `${movies}/${genre_id}`
     },
     movie:{
-        byId: (id:string):string => `${movie}/${id}`,
+        byId: (id:string):string => `${movie}/${id}`
     },
     genres:{
         genres
+    },
+    searchMovie:{
+        searchMovie
+        // bySearchParam: (searchValue:string):string => `${searchMovie}
     }
 }
 
