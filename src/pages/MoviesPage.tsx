@@ -1,9 +1,9 @@
-import {FC, useEffect} from "react";
+import React, {FC, useEffect} from "react";
 
-import {MoviePagination, MoviesList} from "../components";
-import {Outlet, useParams, useSearchParams} from "react-router-dom";
-import {movieActions} from "../redux";
-import {useAppDispatch} from "../hooks";
+import {GenreBadge, MoviePagination, MoviesList} from "../components";
+import {Outlet, useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {genreActions, movieActions} from "../redux";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {movieService} from "../services";
 import {IRes} from "../types";
 import {IMovie} from "../interfaces";
@@ -12,10 +12,20 @@ import {IMovie} from "../interfaces";
 
 const MoviesPage:FC = () => {
 
-    const searchValue = useSearchParams();
+    const {genres} = useAppSelector(state => state.genreReducer);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(genreActions.getAll())
+    },[])
+
+    console.log(genres);
+
+
+    // const searchValue = useSearchParams();
 // const dispatch = useAppDispatch();
 
-    console.log(searchValue);
+    // console.log(searchValue);
 
     // useEffect(() => {
             //
@@ -30,9 +40,17 @@ const MoviesPage:FC = () => {
         // }, [searchValue])
 
         return (
-            <div>
-                <div className={'banner'}>
+            <div className={'container'}>
+                <div className={'genres_wrap'}>
 
+
+                {
+                    genres.map((genre) => (
+                        <GenreBadge key={genre.id} genre={genre}/>
+
+                        )
+                    )
+                }
                 </div>
                 <MoviesList/>
                 <MoviePagination/>

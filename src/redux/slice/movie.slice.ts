@@ -14,17 +14,17 @@ interface IState {
     errors: IError,
     movie:IMovie,
     movieByGenre:IMovie,
-    searchValue:string
+    searchMovie:string
 }
 
 const initialState:IState = {
-    page:null,
+    page:1,
     movies:[],
     totalPages:null,
     errors: null,
     movie:null,
     movieByGenre:null,
-    searchValue:null
+    searchMovie:null
 }
 
 
@@ -74,11 +74,11 @@ const getById = createAsyncThunk<IMovie,{id:string}>(
 
 
 
-// const searchByValue = createAsyncThunk<IPagination<IMovie[]>,> (
+// const searchByValue = createAsyncThunk<IPagination<IMovie[]>,string> (
 //     'movieSlice/searchByValue',
-//     async ({searchValue},{rejectWithValue}) => {
+//     async (_,{rejectWithValue}) => {
 //         try {
-//             const {data} = await movieService.searchByValue(searchValue);
+//             const {data} = await movieService.searchByValue(searchMovie);
 //             return data
 //         } catch (e) {
 //             const err = e as AxiosError
@@ -108,15 +108,18 @@ const slice = createSlice({
         //     state.searchValue = action.payload;
         // },
 
-        searchByValue: (state, action) =>{
-    const {page, total_pages, results} = action.payload;
-    state.movies = results
+        setSearchMovie: (state, action) =>{
+    // const {page, total_pages, results} = action.payload;
+    // state.movies = results
+    //         state.page = page
+    //         state.totalPages = total_pages
+    //         state.movies.push(action.payload.movie)
+            const {page,total_pages,results} = action.payload;
+            state.movies = results
             state.page = page
             state.totalPages = total_pages
 }
     },
-
-
 
     extraReducers: builder =>
         builder
@@ -132,6 +135,15 @@ const slice = createSlice({
                     state.page = page
                     state.totalPages = total_pages
             })
+
+
+            // .addCase(searchByValue.fulfilled, (state, action) => {
+            //     const {page,total_pages,results} = action.payload;
+            //     state.movies = results
+            //     state.page = page
+            //     state.totalPages = total_pages
+            // })
+
 
             .addCase(getById.fulfilled, (state, action) => {
                 state.movie = action.payload;
@@ -154,6 +166,7 @@ const movieActions = {
     ...actions,
     getMovieByGenre,
     getById,
+    // searchByValue
 }
 
 export {

@@ -25,7 +25,7 @@ const MoviesList: FC = () => {
 
 
     useEffect(() => {
-        movieService.getAll(+query.get('page')+1).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
+        movieService.getAll(+query.get('page')).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
     }, [dispatch,query])
 
 
@@ -50,11 +50,11 @@ const MoviesList: FC = () => {
 
     return (
 
-        <div className={'container'}>
-
-            <div className={'genres_container'}>
-                <GenreBadge/>
-            </div>
+        // // <div className={'container'}>
+        //
+        //     {/*<div className={'genres_container'}>*/}
+        //     {/*    <GenreBadge/>*/}
+        //     {/*</div>*/}
 <div className={'movie_list_container'}>
             {
                 movies.map(movie => <MoviesListCard key={movie.id}  movie={movie}/>)
@@ -62,10 +62,10 @@ const MoviesList: FC = () => {
 
 
 </div>
-        </div>
+        // </div>
 
 
-    );
+    )
 };
 
 export {MoviesList};

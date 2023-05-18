@@ -7,32 +7,31 @@ import {SubmitHandler} from "react-hook-form";
 import {IGenre, IMovie} from "../interfaces";
 import {movieService} from "../services";
 
+interface IProps {
+    genre:IGenre
+}
 
 
-
-const GenreBadge: FC= () => {
-    const {genres} = useAppSelector(state => state.genreReducer);
+const GenreBadge: FC<IProps>= ({genre}) => {
+    // const {genre} = useAppSelector(state => state.genreReducer);
     const {movieByGenre} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(genreActions.getAll())
-    },[])
-
-    console.log(genres);
-
-
+    // useEffect(() => {
+    //     dispatch(genreActions.getAll())
+    // },[])
 
     // const  handleGenreClick = (id: number) => {
     //
     // }
 
     return (
-        <div className={'genres_wrap'}>
-            {
-                genres.map((genre) => (
-                    <div key={genre.id}>
+        <div>
+        {/*// <div className={'genres_wrap'}>*/}
+        {/*//     {*/}
+        {/*//         genres.map((genre) => (*/}
+        {/*//             <div key={genre.id}>*/}
                         <input
                             type="checkbox"
                             // checked={}
@@ -41,11 +40,11 @@ const GenreBadge: FC= () => {
                        <button type={'button'} className={'genre_button'} onClick={() => dispatch(movieActions.getMovieByGenre(genre.id))
                        }>{genre.name}
                     </button>
-                    </div>)
-                )
-            }
+            {/*        </div>)*/}
+            {/*    )*/}
+            {/*}*/}
 
-            <Outlet/>
+            {/*<Outlet/>*/}
         </div>
     );
 };
