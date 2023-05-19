@@ -1,13 +1,10 @@
-import React, {FC, useState,useEffect} from 'react';
-import { useSearchParams,useParams} from "react-router-dom";
+import React, {FC, useEffect} from 'react';
+import { useSearchParams} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {genreActions, movieActions} from "../redux";
 import {MoviesListCard} from "./MoviesListCard";
-import {movieService} from "../services";
 import {GenreBadge} from "./GenreBadge";
-import {MoviePagination} from "./MoviePagination";
-
 
 
 const MoviesList: FC = () => {
@@ -58,7 +55,7 @@ const MoviesList: FC = () => {
             }
 
 
-        // </div>
+         </div>
 
         </div>
     )

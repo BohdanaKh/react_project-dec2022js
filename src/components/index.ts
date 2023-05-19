@@ -5,3 +5,4 @@ export  * from './MoviePagination';
 export * from './MovieInfo';
 export * from './GenreBadge';
 export * from './UserInfo';
+export * from './PosterPreview';

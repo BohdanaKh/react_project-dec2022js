@@ -1,14 +1,11 @@
-import {FC, useEffect} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {FC} from 'react';
+import {Link} from "react-router-dom";
 
 import css from './Header.module.css'
 import {SwitchTheme} from "../SwitchTheme";
 import image from '../../../src/images/image.png';
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import {useAppDispatch} from "../../hooks";
 import {movieActions} from "../../redux";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {movieService} from "../../services";
-import {IMovie} from "../../interfaces";
 import {UserInfo} from "../UserInfo";
 
 

@@ -1,12 +1,9 @@
-import {FC, useEffect, useState} from 'react';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {FC} from 'react';
+import {Link} from "react-router-dom";
 
 import {IMovie} from "../interfaces";
 import {posterBaseURL} from "../constants";
 import empty from '../../src/images/empty.jpg';
-import {movieService} from "../services";
-import {movieActions} from "../redux";
-import {useAppDispatch} from "../hooks";
 
 interface IProps {
 movie: IMovie
@@ -14,7 +11,6 @@ movie: IMovie
 
 const MoviesListCard: FC<IProps> = ({movie}) => {
 
-    const [moviesByGenre,setMoviesByGenre] = useState(null);
 
     // const navigate = useNavigate();
     const {id, title, vote_average, backdrop_path} = movie;
@@ -30,7 +26,7 @@ const MoviesListCard: FC<IProps> = ({movie}) => {
             {/*{moviesByGenre &&(*/}
 
             <Link to={`/movie/${id}`}>
-                <img className={'movie_image'} src={{backdrop_path}? posterBaseURL+`${backdrop_path}` : empty} alt={title}/>
+                <img className={'movie_image'} src={{backdrop_path}? 'https://image.tmdb.org/t/p/w500'+`${backdrop_path}` : empty} alt={title}/>
                 <div>
                     <p style={{fontWeight:'bolder'}}>{title}</p>
                     </div>

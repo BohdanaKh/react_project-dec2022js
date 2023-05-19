@@ -1,12 +1,11 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 
-import {IMovie} from "../interfaces";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {movieActions} from "../redux";
 import {posterBaseURL} from "../constants";
 import empty from "../images/empty.jpg";
-import {movieService} from "../services";
+import {PosterPreview} from "./PosterPreview";
 
 // interface IProps {
 //     movie: IMovie
@@ -15,8 +14,8 @@ import {movieService} from "../services";
 const MovieInfo: FC = () => {
 
     const {id} = useParams();
-    // const {movie} = useAppSelector(state =>state.movieReducer);
-    const [movie,setMovie] = useState<IMovie>()
+    const {movie} = useAppSelector(state =>state.movieReducer);
+    // const [movie,setMovie] = useState<IMovie>()
     const dispatch = useAppDispatch();
     console.log(id);
 
@@ -34,13 +33,13 @@ const MovieInfo: FC = () => {
     console.log(movie);
 
 
-    const posterPath = movie.poster_path;
+    // const posterPath = movie.poster_path;
     return (
         <div>
             { movie && (
                 <div>
 
-            <img src={{posterPath}? posterBaseURL+`${movie.poster_path}` : empty} alt={movie.title}/>
+                    {/*<img src={{posterPath}? 'https://image.tmdb.org/t/p/w500'+`${movie.poster_path}` : empty} alt={movie.title}/>*/}
                 <div>{movie.title}</div>
                 <div className={'star-rating'}>
             {[...Array(10)].map((star,index) => {
@@ -59,7 +58,7 @@ const MovieInfo: FC = () => {
                 <div>{movie.overview}</div>
                 </div>
                 )}
-
+{/*<PosterPreview/>*/}
         </div>
     );
 };

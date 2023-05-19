@@ -1,11 +1,9 @@
-import React, {FC, useEffect} from 'react';
-import {Outlet, useNavigate} from "react-router-dom";
+import React, {FC} from 'react';
 
-import {useAppDispatch, useAppSelector} from "../hooks";
-import {genreActions, movieActions} from "../redux";
-import {SubmitHandler} from "react-hook-form";
-import {IGenre, IMovie} from "../interfaces";
-import {movieService} from "../services";
+import {useAppDispatch} from "../hooks";
+import {movieActions} from "../redux";
+import {IGenre} from "../interfaces";
+
 
 interface IProps {
     genre:IGenre,
