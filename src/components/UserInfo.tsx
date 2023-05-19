@@ -1,14 +1,16 @@
 import {FC} from 'react';
 
-interface IProps {
 
+
+const UserInfo: FC = () => {
+const user = {
+    username:'Bohdana135',
+    password:'',
+    APIkey:'5d64180d15634606eb26d7c93e18e3db'
 }
-
-const UserInfo: FC<IProps> = () => {
-
     return (
         <div>
-            UserInfo
+            <span>{user.username}</span>
         </div>
     );
 };

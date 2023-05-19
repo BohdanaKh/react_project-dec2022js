@@ -1,10 +1,12 @@
-import {FC, useEffect} from 'react';
+import {FC, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 
 import {IMovie} from "../interfaces";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {movieActions} from "../redux";
 import {posterBaseURL} from "../constants";
+import empty from "../images/empty.jpg";
+import {movieService} from "../services";
 
 // interface IProps {
 //     movie: IMovie
@@ -13,7 +15,8 @@ import {posterBaseURL} from "../constants";
 const MovieInfo: FC = () => {
 
     const {id} = useParams();
-    const {movie} = useAppSelector(state =>state.movieReducer);
+    // const {movie} = useAppSelector(state =>state.movieReducer);
+    const [movie,setMovie] = useState<IMovie>()
     const dispatch = useAppDispatch();
     console.log(id);
 
@@ -21,14 +24,23 @@ const MovieInfo: FC = () => {
         if (id) {
         dispatch(movieActions.getById({id}))
         }
-    },[dispatch,id])
+    },[id,dispatch])
+
+    // useEffect(() => {
+    //     movieService.getById(id).then(value => value.data).then(value => setMovie(value))
+    // }, [id])
+
 
     console.log(movie);
 
 
+    const posterPath = movie.poster_path;
     return (
         <div>
-            <img src={ posterBaseURL+`${movie.poster_path}`} alt={movie.title}/>
+            { movie && (
+                <div>
+
+            <img src={{posterPath}? posterBaseURL+`${movie.poster_path}` : empty} alt={movie.title}/>
                 <div>{movie.title}</div>
                 <div className={'star-rating'}>
             {[...Array(10)].map((star,index) => {
@@ -45,6 +57,8 @@ const MovieInfo: FC = () => {
                 <div>{movie.release_date}</div>
                 <div>{movie.adult}</div>
                 <div>{movie.overview}</div>
+                </div>
+                )}
 
         </div>
     );

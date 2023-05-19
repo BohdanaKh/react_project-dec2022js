@@ -12,14 +12,13 @@ import {IMovie} from "../interfaces";
 
 const MoviesPage:FC = () => {
 
-    const {genres} = useAppSelector(state => state.genreReducer);
-    const dispatch = useAppDispatch();
+    // const {genres} = useAppSelector(state => state.genreReducer);
+    // const dispatch = useAppDispatch();
+    //
+    // useEffect(() => {
+    //     dispatch(genreActions.getAll())
+    // },[])
 
-    useEffect(() => {
-        dispatch(genreActions.getAll())
-    },[])
-
-    console.log(genres);
 
 
     // const searchValue = useSearchParams();
@@ -41,17 +40,17 @@ const MoviesPage:FC = () => {
 
         return (
             <div className={'container'}>
-                <div className={'genres_wrap'}>
+                {/*<div className={'genres_wrap'}>*/}
 
 
-                {
-                    genres.map((genre) => (
-                        <GenreBadge key={genre.id} genre={genre}/>
+                {/*{*/}
+                {/*    genres.map((genre) => (*/}
+                {/*        <GenreBadge key={genre.id} genre={genre}/>*/}
 
-                        )
-                    )
-                }
-                </div>
+                {/*        )*/}
+                {/*    )*/}
+                {/*}*/}
+                {/*</div>*/}
                 <MoviesList/>
                 <MoviePagination/>
             </div>

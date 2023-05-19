@@ -9,14 +9,15 @@ import {movieActions} from "../../redux";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {movieService} from "../../services";
 import {IMovie} from "../../interfaces";
+import {UserInfo} from "../UserInfo";
 
 
 
 const Header: FC = () => {
 
-    const {reset, handleSubmit, register, setValue} = useForm<IMovie>();
-    const navigate = useNavigate();
-    const {movie,searchMovie} = useAppSelector(state => state.movieReducer);
+    // const {reset, handleSubmit, register, setValue} = useForm<string>();
+    // const navigate = useNavigate();
+    // const {movie,searchMovie} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
 
     // useEffect(() => {
@@ -31,17 +32,19 @@ const Header: FC = () => {
        //  dispatch(movieActions.searchByValue(searchValue));
     // }
 
-    useEffect(() => {
-        if (searchMovie) {
-            setValue('title', movie.title)
-        }
-    }, [searchMovie, setValue])
+    // useEffect(() => {
+    //     if (searchMovie) {
+    //         setValue('title', movie.title)
+    //     }
+    // }, [searchMovie, setValue])
 
-    const find:SubmitHandler<IMovie> = async () => {
-        const {data} = await movieService.searchByValue(movie.title);
-        dispatch(movieActions.setSearchMovie({searchValue: data}))
-        // await dispatch(movieActions.searchByValue(searchMovie))
-        reset()
+    const find = async (e:any) => {
+        e.preventDefault();
+        const text = e.target.text.value;
+        // const data = await movieService.searchByValue(text);
+        // console.log(data);
+        // dispatch(movieActions.setSearchMovie( data))
+        await dispatch(movieActions.searchByValue(text))
     }
 
     return (
@@ -51,8 +54,8 @@ const Header: FC = () => {
             </Link>
 
             <div className={'searchBar'}>
-                <form onSubmit={handleSubmit(find)}>
-                    <input type="text" placeholder={'search movie'} {...register('title')}/>
+                <form onSubmit={find}>
+                    <input type="text" placeholder={'search movie'} name={'text'}/>
                     <button  type="submit" className={'search-button'}>&#128269; </button>
                 </form>
                 {/*<form onSubmit={find}>*/}
@@ -64,6 +67,8 @@ const Header: FC = () => {
             </div>
 
             <SwitchTheme/>
+
+<UserInfo/>
 
             <div className={'user-image'}>
                 <img src={image} alt="user"/>

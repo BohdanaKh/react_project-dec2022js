@@ -1,70 +1,66 @@
-import {FC, useState,useEffect} from 'react';
+import React, {FC, useState,useEffect} from 'react';
 import { useSearchParams,useParams} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../hooks";
-import {movieActions} from "../redux";
+import {genreActions, movieActions} from "../redux";
 import {MoviesListCard} from "./MoviesListCard";
 import {movieService} from "../services";
 import {GenreBadge} from "./GenreBadge";
+import {MoviePagination} from "./MoviePagination";
 
 
 
 const MoviesList: FC = () => {
     const {movies} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
-    const [query,setQuery] = useSearchParams();
-    const params = useParams();
-    const [movieByGenre, setMovieByGenre] = useState([]);
+    const [query,setQuery] = useSearchParams({page:'1'});
+    // const params = useParams();
+    // const [movieByGenre, setMovieByGenre] = useState([]);
+    // const [, setPage] = useState(null)
+    console.log(movies);
 
-    console.log(params);
-
-
-    useEffect(() => {
-        setQuery(prev =>({...prev,page:'1'}) )
-    },[setQuery])
-
+    const {genres} = useAppSelector(state => state.genreReducer);
 
     useEffect(() => {
-        movieService.getAll(+query.get('page')).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
+        dispatch(genreActions.getAll())
+    },[dispatch,query])
+
+    console.log(genres);
+
+    useEffect(() => {
+        dispatch(movieActions.getAll(+query.get('page')))
     }, [dispatch,query])
 
 
-
-    console.log(movies);
+    // useEffect(() => {
+    //     dispatch(movieActions.setSearchMovie(data))
+    // },[dispatch])
 
     // useEffect(() => {
-    //     dispatch(movieActions.getAll())
-    // },[dispatch])
-    //
+    //     movieService.getAll(+query.get('page')).then(value => value.data).then(value => dispatch(movieActions.setMovies(value)))
+    // }, [dispatch,query])
 
-    // const prevPage = () => {
-    //     setQuery(prev1 => ({...prev1,page:+prev1.get('page')-1}))
-    // }
-    //
-    // const nextPage = () => {
-    //     setQuery(prev1 => ({...prev1,page:+prev1.get('page')+1}))
-    //     console.log(page);
-    // }
 
 
 
     return (
+        <div>
 
-        // // <div className={'container'}>
-        //
-        //     {/*<div className={'genres_container'}>*/}
-        //     {/*    <GenreBadge/>*/}
-        //     {/*</div>*/}
+        <div className={'genres_wrap'}>
+            {genres.map((genre) => (<GenreBadge key={genre.id} genre={genre}/>))}
+        </div>
+
+
 <div className={'movie_list_container'}>
             {
+                movies &&
                 movies.map(movie => <MoviesListCard key={movie.id}  movie={movie}/>)
             }
 
 
-</div>
         // </div>
 
-
+        </div>
     )
 };
 

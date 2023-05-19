@@ -5,7 +5,7 @@ import  './App.css';
 import {MainLayout} from "./layouts";
 import { MoviesPage} from "./pages";
 import {useAppSelector} from "./hooks";
-import {MovieInfo} from "./components";
+import {MovieInfo, MoviesList} from "./components";
 
 const App = () => {
 const {darkMode} = useAppSelector(state => state.themeReducer);

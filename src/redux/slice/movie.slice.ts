@@ -13,33 +13,31 @@ interface IState {
     totalPages:number,
     errors: IError,
     movie:IMovie,
-    movieByGenre:IMovie,
-    searchMovie:string
+    // movieByGenre:IMovie
 }
 
 const initialState:IState = {
-    page:1,
+    page:null,
     movies:[],
     totalPages:null,
     errors: null,
     movie:null,
-    movieByGenre:null,
-    searchMovie:null
+    // movieByGenre:null,
 }
 
 
-// const getAll = createAsyncThunk<IPagination<IMovie[]>,void>(
-//     'movieSlice/getAll',
-//     async (_,{rejectWithValue}) => {
-//         try {
-//             const {data} = await movieService.getAll();
-//             return data
-//         } catch (e) {
-//            const err = e as AxiosError
-//             return rejectWithValue(err.response.data)
-//         }
-//     }
-// )
+const getAll = createAsyncThunk<IPagination<IMovie[]>,number>(
+    'movieSlice/getAll',
+    async (page,{rejectWithValue}) => {
+        try {
+            const {data} = await movieService.getAll(page);
+            return data
+        } catch (e) {
+           const err = e as AxiosError
+            return rejectWithValue(err.response.data)
+        }
+    }
+)
 
     // (+query.get('page')+1)
 
@@ -48,8 +46,8 @@ const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,string>(
     async (id,{rejectWithValue}) => {
         // const [query] = useSearchParams();
         try {
-            const {data:movies} = await movieService.getByGenre(1,id);
-            return movies
+            const {data} = await movieService.getByGenre(1,id);
+            return data
         } catch (e) {
            const err = e as AxiosError
             return rejectWithValue(err.response.data)
@@ -74,18 +72,18 @@ const getById = createAsyncThunk<IMovie,{id:string}>(
 
 
 
-// const searchByValue = createAsyncThunk<IPagination<IMovie[]>,string> (
-//     'movieSlice/searchByValue',
-//     async (_,{rejectWithValue}) => {
-//         try {
-//             const {data} = await movieService.searchByValue(searchMovie);
-//             return data
-//         } catch (e) {
-//             const err = e as AxiosError
-//             return rejectWithValue(err.response.data)
-//         }
-//     }
-// )
+const searchByValue = createAsyncThunk<IPagination<IMovie[]>,string> (
+    'movieSlice/searchByValue',
+    async (text,{rejectWithValue}) => {
+        try {
+            const {data} = await movieService.searchByValue(1,text);
+            return data
+        } catch (e) {
+            const err = e as AxiosError
+            return rejectWithValue(err.response.data)
+        }
+    }
+)
 
 
 
@@ -93,17 +91,17 @@ const slice = createSlice({
     name: 'movieSlice',
     initialState,
     reducers: {
-        setMovies: (state, action) => {
-            const {page, total_pages, results} = action.payload;
-            state.movies = results
-            state.page = page
-            state.totalPages = total_pages
-        },
-        setMovieByGenre: (state, action) => {
-            state.movieByGenre = action.payload;
-            //     state.movies.filter( item=>item.genre_ids.includes(16));
-            //
-        },
+        // setMovies: (state, action) => {
+        //     const {page, total_pages, results} = action.payload;
+        //     state.movies = results
+        //     state.page = page
+        //     state.totalPages = total_pages
+        // },
+        // setMovieByGenre: (state, action) => {
+        //     state.movieByGenre = action.payload;
+        //     //     state.movies.filter( item=>item.genre_ids.includes(16));
+        //     //
+        // },
         // setSearchValue: (state, action) => {
         //     state.searchValue = action.payload;
         // },
@@ -114,7 +112,7 @@ const slice = createSlice({
     //         state.page = page
     //         state.totalPages = total_pages
     //         state.movies.push(action.payload.movie)
-            const {page,total_pages,results} = action.payload;
+            const {page,results,total_pages} = action.payload;
             state.movies = results
             state.page = page
             state.totalPages = total_pages
@@ -129,24 +127,33 @@ const slice = createSlice({
             //     state.page = page
             //     state.totalPages = total_pages
             // })
-            .addCase(getMovieByGenre.fulfilled, (state, action) => {
-                const {page,total_pages,results} = action.payload;
-                    state.movies = results
-                    state.page = page
-                    state.totalPages = total_pages
-            })
-
-
-            // .addCase(searchByValue.fulfilled, (state, action) => {
+            // .addCase(getMovieByGenre.fulfilled, (state,action) => {
             //     const {page,total_pages,results} = action.payload;
-            //     state.movies = results
-            //     state.page = page
-            //     state.totalPages = total_pages
+            //         state.movies = results
+            //         state.page = page
+            //         state.totalPages = total_pages
             // })
+
+
+            .addCase(searchByValue.fulfilled, (state, action) => {
+                const {page,total_pages,results} = action.payload;
+                state.movies = results
+                state.page = page
+                state.totalPages = total_pages
+            })
 
 
             .addCase(getById.fulfilled, (state, action) => {
                 state.movie = action.payload;
+            })
+
+
+            .addMatcher(isFulfilled(getAll,getMovieByGenre), (state,action) => {
+                const {page,total_pages,results} = action.payload;
+                state.movies = results
+                state.page = page
+                state.totalPages = total_pages
+                state.errors = null
             })
 
 
@@ -164,9 +171,10 @@ const {actions, reducer:movieReducer} = slice;
 
 const movieActions = {
     ...actions,
+    getAll,
     getMovieByGenre,
     getById,
-    // searchByValue
+    searchByValue
 }
 
 export {

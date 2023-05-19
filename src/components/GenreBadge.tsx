@@ -8,15 +8,19 @@ import {IGenre, IMovie} from "../interfaces";
 import {movieService} from "../services";
 
 interface IProps {
-    genre:IGenre
+    genre:IGenre,
+
 }
 
 
 const GenreBadge: FC<IProps>= ({genre}) => {
     // const {genre} = useAppSelector(state => state.genreReducer);
-    const {movieByGenre} = useAppSelector(state => state.movieReducer);
+    // const {movieByGenre} = useAppSelector(state => state.movieReducer);
+
+    const {id,name} = genre;
     const dispatch = useAppDispatch();
     // const navigate = useNavigate();
+
 
     // useEffect(() => {
     //     dispatch(genreActions.getAll())
@@ -25,6 +29,7 @@ const GenreBadge: FC<IProps>= ({genre}) => {
     // const  handleGenreClick = (id: number) => {
     //
     // }
+
 
     return (
         <div>
@@ -37,8 +42,8 @@ const GenreBadge: FC<IProps>= ({genre}) => {
                             // checked={}
                             onChange={() => {}}
                         />
-                       <button type={'button'} className={'genre_button'} onClick={() => dispatch(movieActions.getMovieByGenre(genre.id))
-                       }>{genre.name}
+                       <button type={'button'} className={'genre_button'} onClick={() => dispatch(movieActions.getMovieByGenre(id))
+                       }>{name}
                     </button>
             {/*        </div>)*/}
             {/*    )*/}
