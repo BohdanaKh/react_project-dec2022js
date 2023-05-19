@@ -16,13 +16,13 @@ const MoviesList: FC = () => {
     // const [, setPage] = useState(null)
     console.log(movies);
 
-    const {genres} = useAppSelector(state => state.genreReducer);
+    // const {genres} = useAppSelector(state => state.genreReducer);
+    //
+    // useEffect(() => {
+    //     dispatch(genreActions.getAll())
+    // },[])
 
-    useEffect(() => {
-        dispatch(genreActions.getAll())
-    },[dispatch,query])
 
-    console.log(genres);
 
     useEffect(() => {
         dispatch(movieActions.getAll(+query.get('page')))
@@ -43,9 +43,9 @@ const MoviesList: FC = () => {
     return (
         <div>
 
-        <div className={'genres_wrap'}>
-            {genres.map((genre) => (<GenreBadge key={genre.id} genre={genre}/>))}
-        </div>
+        {/*<div className={'genres_wrap'}>*/}
+        {/*    {genres.map((genre) => (<GenreBadge key={genre.id} genre={genre}/>))}*/}
+        {/*</div>*/}
 
 
 <div className={'movie_list_container'}>

@@ -7,7 +7,7 @@ const auth = '/authentication';
 const movies = '/discover/movie';
 const movie = '/movie';
 const genres = '/genre/movie/list';
-const searchMovie = '/search/keyword';
+const searchMovie = '/search/movie';
 
 const urls = {
     auth:{

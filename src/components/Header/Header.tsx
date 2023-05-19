@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import {Link} from "react-router-dom";
+import {FC, useEffect} from 'react';
+import {Link, useSearchParams} from "react-router-dom";
 
 import css from './Header.module.css'
 import {SwitchTheme} from "../SwitchTheme";
@@ -16,6 +16,7 @@ const Header: FC = () => {
     // const navigate = useNavigate();
     // const {movie,searchMovie} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
+    const [query,setQuery] = useSearchParams({page:'1'});
 
     // useEffect(() => {
     //     movieService.searchByValue(searchValue).then(value => value.data).then(value => dispatch(movieActions.searchByValue(value)))

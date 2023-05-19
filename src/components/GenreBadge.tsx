@@ -3,6 +3,8 @@ import React, {FC} from 'react';
 import {useAppDispatch} from "../hooks";
 import {movieActions} from "../redux";
 import {IGenre} from "../interfaces";
+import {useSearchParams} from "react-router-dom";
+import {MoviePagination} from "./MoviePagination";
 
 
 interface IProps {
@@ -18,6 +20,7 @@ const GenreBadge: FC<IProps>= ({genre}) => {
     const {id,name} = genre;
     const dispatch = useAppDispatch();
     // const navigate = useNavigate();
+    const [query,setQuery] = useSearchParams({page:'1'});
 
 
     // useEffect(() => {
@@ -29,25 +32,29 @@ const GenreBadge: FC<IProps>= ({genre}) => {
     // }
 
 
+
+
     return (
         <div>
         {/*// <div className={'genres_wrap'}>*/}
         {/*//     {*/}
         {/*//         genres.map((genre) => (*/}
         {/*//             <div key={genre.id}>*/}
-                        <input
-                            type="checkbox"
-                            // checked={}
-                            onChange={() => {}}
-                        />
-                       <button type={'button'} className={'genre_button'} onClick={() => dispatch(movieActions.getMovieByGenre(id))
+        {/*                <input*/}
+        {/*                    type="checkbox"*/}
+        {/*                    // checked={}*/}
+        {/*                    onChange={() => {}}*/}
+        {/*                />*/}
+                       <button type={'button'} className={'genre_button'} onClick={() =>
+                           // @ts-ignore
+                           dispatch(movieActions.getMovieByGenre(id))
                        }>{name}
                     </button>
             {/*        </div>)*/}
             {/*    )*/}
             {/*}*/}
 
-            {/*<Outlet/>*/}
+
         </div>
     );
 };

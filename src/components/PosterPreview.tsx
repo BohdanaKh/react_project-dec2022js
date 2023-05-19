@@ -11,21 +11,22 @@ interface IProps {
 }
 
 const PosterPreview: FC<IProps> = () => {
-    const {movie} = useAppSelector(state => state.movieReducer);
-    const {id} = useParams();
 
-
-    useEffect(() => {
-        if (id) {
-         movieActions.getById({id})
-        }
-    },[id])
-
-    const posterPath = movie.poster_path;
+    // const {movies} = useAppSelector(state => state.movieReducer);
+    // const {id} = useParams();
+    //
+    //
+    // useEffect(() => {
+    //     if (id) {
+    //      movieActions.getById({id})
+    //     }
+    // },[id])
+    //
+    // const posterPath = poster_path;
     return (
         <div>
-            <img src={{posterPath}? 'https://image.tmdb.org/t/p/w500'+`${movie.poster_path}` : empty} alt={movie.title}/>
-        </div>
+          {/*<img width={200} height={300} src={{posterPath}? 'https://image.tmdb.org/t/p/w500'+`${poster_path}` : empty} alt={title}/>*/}
+         </div>
     );
 };
 

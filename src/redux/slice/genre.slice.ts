@@ -1,7 +1,7 @@
 import {AxiosError} from "axios";
 import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@reduxjs/toolkit";
 
-import {IError, IGenre, IGenres} from "../../interfaces";
+import {IError, IGenre} from "../../interfaces";
 import {genresService} from "../../services";
 
 interface IState {
@@ -41,7 +41,7 @@ setGenreId:(state, action) => {
         builder
             .addCase(getAll.fulfilled, (state, action) => {
                 const {genres} = action.payload;
-                state.genres = genres;
+             state.genres = genres;
             })
 
             .addMatcher(isFulfilled(), state => {
