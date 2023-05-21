@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 
 import {GenreBadge, MoviePagination, MoviesList} from "../components";
 import {Outlet, useNavigate, useParams, useSearchParams} from "react-router-dom";
@@ -12,7 +12,7 @@ import {IMovie} from "../interfaces";
 
 const MoviesPage:FC = () => {
 
-    const {genres,selectedGenres} = useAppSelector(state => state.genreReducer);
+    let {genres,selectedGenres} = useAppSelector(state => state.genreReducer);
     const dispatch = useAppDispatch();
 
 
@@ -39,16 +39,18 @@ const MoviesPage:FC = () => {
         //     };
         //     fetchMovies();
         // }, [searchValue])
-    const filtr = selectedGenres.join(',');
-    console.log(filtr);
+    const with_genres:string = selectedGenres.join(',');
+    console.log(with_genres);
+
 
     return (
-        <div>
+        <div className={'page'}>
             {/*// <div className={darkMode?'App-light':'App-dark'}>*/}
 
             <div className={'genres_wrap'}>
                     {genres.map((genre) => (<GenreBadge key={genre.id} genre={genre}/>))}
-                <button className={'filter_button'} type={'button'} onClick={() =>  dispatch(movieActions.getMovieByGenre(filtr))}>Filter</button>
+                <button className={'filter_button'} type={'button'} onClick={() =>  dispatch(movieActions.getMovieByGenre({with_genres,page:1}))}>Filter</button>
+
             </div>
 
                 {/*<div className={'genres_wrap'}>*/}

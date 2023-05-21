@@ -2,8 +2,7 @@ import {FC} from 'react';
 import {Link} from "react-router-dom";
 
 import {IMovie} from "../interfaces";
-import {posterBaseURL} from "../constants";
-import welcome from '../../src/images/welcome.png';
+import empty from '../../src/images/empty.jpg';
 
 interface IProps {
 movie: IMovie
@@ -27,9 +26,9 @@ const MoviesListCard: FC<IProps> = ({movie}) => {
             {/*{moviesByGenre &&(*/}
 
             <Link to={`/movie/${id}`}>
-                <img className={'movie_image'} src={{backdrop_path}? 'https://image.tmdb.org/t/p/w500'+`${backdrop_path}` : welcome} alt={title}/>
+                <img className={'movie_image'} src={{backdrop_path}? `https://image.tmdb.org/t/p/w500${backdrop_path}` : empty} alt={title}/>
                 <div>
-                    <p style={{fontWeight:'bolder'}}>{title}</p>
+                    <p style={{fontSize:18,fontWeight:'bolder'}}>{title}</p>
                     </div>
                 <div className={'star-rating'}>
                     {[...Array(10)].map((star,index) => {

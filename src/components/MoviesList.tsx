@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "../hooks";
 import {genreActions, movieActions} from "../redux";
 import {MoviesListCard} from "./MoviesListCard";
 import {GenreBadge} from "./GenreBadge";
+import background from "../images/background.jpg";
 
 
 const MoviesList: FC = () => {
@@ -32,6 +33,7 @@ const MoviesList: FC = () => {
         dispatch(movieActions.getAll(+query.get('page')))
     }, [dispatch,query])
 
+
     // useEffect(() => {
     //     dispatch(movieActions.setSearchMovie(data))
     // },[dispatch])
@@ -50,8 +52,7 @@ const MoviesList: FC = () => {
 
             // <div className={darkMode?'App-light':'App-dark'}>
 
-            <div className={'movie_list_container'}>
-
+            <div className={'movie_list_container'} style= {{ backgroundImage:`url(${background})`,backgroundRepeat:"no-repeat", backgroundSize:"cover"}} >
 
             {
                 movies &&
@@ -59,7 +60,7 @@ const MoviesList: FC = () => {
                 movies.map(movie => <MoviesListCard key={movie.id}  movie={movie}/>)
             }
             </div>
-            // </div>
+
 
     )
 };

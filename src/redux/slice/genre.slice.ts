@@ -42,6 +42,7 @@ setGenreId:(state, action) => {
     const id = action.payload;
     // @ts-ignore
     state.selectedGenres = [...state.selectedGenres,id]
+    // state.selectedGenres = [state.selectedGenres.push(id)]
     console.log(state.selectedGenres);
     state.trigger = true
 },

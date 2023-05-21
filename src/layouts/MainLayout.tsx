@@ -5,8 +5,10 @@ import {Header} from "../components";
 import {useAppSelector} from "../hooks";
 
 
+
 const MainLayout: FC = () => {
     const {darkMode} = useAppSelector(state => state.themeReducer);
+
 
 
     return (

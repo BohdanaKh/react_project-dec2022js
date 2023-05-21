@@ -3,6 +3,7 @@ import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@
 
 import {movieService} from "../../services";
 import {IError, IMovie, IPagination} from "../../interfaces";
+import {genreReducer} from "./genre.slice";
 
 
 
@@ -12,8 +13,8 @@ interface IState {
     totalPages:number,
     errors: IError,
     // movie:IMovie,
-    loading:boolean,
-    trigger :boolean
+    // loading:boolean,
+    // trigger :boolean
     // movieByGenre:IMovie
 }
 
@@ -24,8 +25,8 @@ const initialState:IState = {
     totalPages:null,
     errors: null,
     // movie:null,
-    loading:false,
-    trigger: false
+    // loading:false,
+    // trigger: false
     // movieByGenre:null,
 }
 
@@ -60,12 +61,12 @@ const getAll = createAsyncThunk<IPagination<IMovie[]>,number>(
 // )
 
 
-const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,string>(
+const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,{with_genres:string,page:number}>(
     'movieSlice/getAll',
-    async (selectedGenres,{rejectWithValue}) => {
+    async ({with_genres,page},{rejectWithValue}) => {
         // const [query] = useSearchParams();
         try {
-            const {data} = await movieService.getByGenre(selectedGenres);
+            const {data} = await movieService.getByGenre(with_genres,page);
             return data
         } catch (e) {
             const err = e as AxiosError
@@ -75,31 +76,11 @@ const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,string>(
 )
 
 
-
-
-// const getById = createAsyncThunk<IMovie,{id:string}>(
-//     'movieSlice/getById',
-//     async ({id},{rejectWithValue}) => {
-//             try {
-//                 const {data} = await movieService.getById(id);
-//                 return data
-//         } catch (e) {
-//             const err = e as AxiosError
-//             return rejectWithValue(err.response.data)
-//         }
-//     }
-// )
-
-
-
-
-
-
-const searchByValue = createAsyncThunk<IPagination<IMovie[]>, string> (
+const searchByValue = createAsyncThunk<IPagination<IMovie[]>, {query:string,page:number}> (
     'movieSlice/searchByValue',
-    async (text,{rejectWithValue}) => {
+    async ({query,page},{rejectWithValue}) => {
         try {
-            const {data} = await movieService.searchByValue(text);
+            const {data} = await movieService.searchByValue(query,page);
             return data
         } catch (e) {
             const err = e as AxiosError
@@ -107,6 +88,8 @@ const searchByValue = createAsyncThunk<IPagination<IMovie[]>, string> (
         }
     }
 )
+
+
 
 
 
@@ -159,9 +142,13 @@ const slice = createSlice({
             //     state.totalPages = total_pages
             // })
             //
-            // // .addCase(getMovieByGenre.fulfilled, (state,action) => {
-            // //  return action.payload
-            // // })
+            // .addMatcher(isFulfilled(getMovieByGenre), (state,action) => {
+            //     const {page,total_pages,results} = action.payload;
+            //     state.movies = results
+            //     state.page = page
+            //     state.totalPages = total_pages
+            //     state.errors = null
+            // })
             //
             //
             // .addCase(searchByValue.fulfilled, (state, action) => {

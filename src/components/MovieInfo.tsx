@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {GenreBadge} from "./GenreBadge";
 import {movieService} from "../services";
 import {IMovie} from "../interfaces";
-import empty from '../images/empty.jpg';
+import welcome from '../images/welcome.png';
 import {genreActions, movieActions} from "../redux";
 import {useAppDispatch} from "../hooks";
 
@@ -60,14 +60,14 @@ const MovieInfo: FC = () => {
         //     { movie ?
                 <div className={'movieInfo'}>
 
-                    <img width={400} height={500} src={{poster_path}? `https://image.tmdb.org/t/p/w500${poster_path}` : empty} alt={movie.title}/>
+                    <img width={400} height={500} src={{poster_path}? `https://image.tmdb.org/t/p/w500${poster_path}` : welcome} alt={movie.title}/>
 
                     <div className={'movie_about'}>
                 <h3 className={'movie_title'}>{title}</h3>
 
                 <Link to={'/'}>
                         {
-                            genres.map((genre) => <button type={'button'} className={'genre_button'} onClick={() =>dispatch(movieActions.getMovieByGenre(genre.id.toString()))}>{genre.name}</button>)
+                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(movieActions.getMovieByGenre({with_genres:genre.id.toString(),page:1}))}>{genre.name}</button>)
                         }
                 </Link>
 
@@ -87,7 +87,6 @@ const MovieInfo: FC = () => {
                 <div>Runtime: {runtime} min.</div>
                 <div className={'movie_overview'}>{overview}</div>
                     </div>
-{/*<PosterPreview/>*/}
                 </div>
 
         //     )}

@@ -33,8 +33,8 @@ const prev = () => {
 
     return (
         <div className={'pagination'}>
-            <button disabled={(page===1)} onClick={prev}><span>&#9756;</span></button>
-            <button disabled={(page===totalPages)} onClick={next}><span>&#9758;</span></button>
+            <button disabled={(page===1)} onClick={prev}>&#10094;&#10094;</button>
+            <button disabled={(page===totalPages)} onClick={next}>&#10095;&#10095;</button>
         </div>
     );
 };
