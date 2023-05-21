@@ -12,8 +12,10 @@ import {IMovie} from "../interfaces";
 
 const MoviesPage:FC = () => {
 
-    const {genres} = useAppSelector(state => state.genreReducer);
+    const {genres,selectedGenres} = useAppSelector(state => state.genreReducer);
     const dispatch = useAppDispatch();
+
+
     //
     useEffect(() => {
         dispatch(genreActions.getAll())
@@ -37,12 +39,17 @@ const MoviesPage:FC = () => {
         //     };
         //     fetchMovies();
         // }, [searchValue])
+    const filtr = selectedGenres.join(',');
+    console.log(filtr);
 
-        return (
-            <div className={'container'}>
-                <div className={'genres_wrap'}>
+    return (
+        <div>
+            {/*// <div className={darkMode?'App-light':'App-dark'}>*/}
+
+            <div className={'genres_wrap'}>
                     {genres.map((genre) => (<GenreBadge key={genre.id} genre={genre}/>))}
-                </div>
+                <button className={'filter_button'} type={'button'} onClick={() =>  dispatch(movieActions.getMovieByGenre(filtr))}>Filter</button>
+            </div>
 
                 {/*<div className={'genres_wrap'}>*/}
 

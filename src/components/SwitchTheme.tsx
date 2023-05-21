@@ -11,7 +11,7 @@ const SwitchTheme: FC = () => {
 
     return (
         <div>
-            <button className={'toggle_theme'} onClick={() => dispatch(themeActions.toggleTheme())} >{darkMode?'Dark':'Light'}</button>
+            <button className={'toggle_theme'} onClick={() => dispatch(themeActions.toggleTheme())}></button>
         </div>
     );
 };

@@ -6,6 +6,8 @@ import {GenreBadge} from "./GenreBadge";
 import {movieService} from "../services";
 import {IMovie} from "../interfaces";
 import empty from '../images/empty.jpg';
+import {genreActions, movieActions} from "../redux";
+import {useAppDispatch} from "../hooks";
 
 
 const MovieInfo: FC = () => {
@@ -31,7 +33,7 @@ const MovieInfo: FC = () => {
     // const {title, genres, adult, vote_average, overview, release_date, runtime} = useAppSelector(state => state.movieReducer.movie);
     const {title, poster_path,genres, adult, vote_average, overview, release_date, runtime} = movie;
     //
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
     console.log(id);
 
 
@@ -56,14 +58,16 @@ const MovieInfo: FC = () => {
         //     ) : (
         // <div>
         //     { movie ?
-                <div>
-movieInfo
+                <div className={'movieInfo'}>
+
                     <img width={400} height={500} src={{poster_path}? `https://image.tmdb.org/t/p/w500${poster_path}` : empty} alt={movie.title}/>
-                <h3>{title}</h3>
+
+                    <div className={'movie_about'}>
+                <h3 className={'movie_title'}>{title}</h3>
 
                 <Link to={'/'}>
                         {
-                            genres.map((genre) => <GenreBadge key={genre.id} genre={genre}/>)
+                            genres.map((genre) => <button type={'button'} className={'genre_button'} onClick={() =>dispatch(movieActions.getMovieByGenre(genre.id.toString()))}>{genre.name}</button>)
                         }
                 </Link>
 
@@ -81,7 +85,8 @@ movieInfo
 <h2  style={{color:'red',fontSize:46}} >{adult? 'For adults' : ''}</h2>
                 <div>Release date: {release_date}</div>
                 <div>Runtime: {runtime} min.</div>
-                <div>{overview}</div>
+                <div className={'movie_overview'}>{overview}</div>
+                    </div>
 {/*<PosterPreview/>*/}
                 </div>
 

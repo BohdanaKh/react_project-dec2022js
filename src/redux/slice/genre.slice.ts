@@ -1,20 +1,25 @@
 import {AxiosError} from "axios";
 import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@reduxjs/toolkit";
 
-import {IError, IGenre} from "../../interfaces";
+import {IError, IGenre,IGenres} from "../../interfaces";
 import {genresService} from "../../services";
 
 interface IState {
     genres: IGenre[],
     errors: IError,
-    genreId:number
+    genreId:number,
+    selectedGenres:[],
+    trigger:boolean
 }
 
 const initialState:IState = {
     genres: [],
     errors: null,
-    genreId:null
+    genreId:null,
+    selectedGenres:[],
+    trigger:false
 }
+
 
 // @ts-ignore
 const getAll = createAsyncThunk<IGenres<IGenre[]>,void>('genreSlice/getAll', async (_,{rejectWithValue}) => {
@@ -34,8 +39,13 @@ const slice = createSlice({
     initialState,
     reducers: {
 setGenreId:(state, action) => {
-    state.genreId = action.payload;
+    const id = action.payload;
+    // @ts-ignore
+    state.selectedGenres = [...state.selectedGenres,id]
+    console.log(state.selectedGenres);
+    state.trigger = true
 },
+
     },
     extraReducers: builder =>
         builder

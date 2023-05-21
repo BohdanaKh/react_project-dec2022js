@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 import {IMovie} from "../interfaces";
 import {posterBaseURL} from "../constants";
-import empty from '../../src/images/empty.jpg';
+import welcome from '../../src/images/welcome.png';
 
 interface IProps {
 movie: IMovie
@@ -23,10 +23,11 @@ const MoviesListCard: FC<IProps> = ({movie}) => {
 
     return (
         <div className={'movie_card'}>
+
             {/*{moviesByGenre &&(*/}
 
             <Link to={`/movie/${id}`}>
-                <img className={'movie_image'} src={{backdrop_path}? 'https://image.tmdb.org/t/p/w500'+`${backdrop_path}` : empty} alt={title}/>
+                <img className={'movie_image'} src={{backdrop_path}? 'https://image.tmdb.org/t/p/w500'+`${backdrop_path}` : welcome} alt={title}/>
                 <div>
                     <p style={{fontWeight:'bolder'}}>{title}</p>
                     </div>

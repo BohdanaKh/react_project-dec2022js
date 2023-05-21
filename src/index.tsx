@@ -14,12 +14,13 @@ const root = ReactDOM.createRoot(
 const store = setupStore();
 
 root.render(
+    <div className={'super'}>
 <Provider store={store}>
     <BrowserRouter>
     <App />
     </BrowserRouter>
 </Provider>
-
+    </div>
 );
 
 

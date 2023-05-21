@@ -1,16 +1,37 @@
-
-.App-light{
-  background-color: skyblue;
-  width: 100vw;
-  height: 100vh;
+body{
+  box-sizing: border-box;
+  padding: 0;
   margin: 0;
+
+}
+.App-light{
+  background-color: lightgreen;
+  color: black;
 }
 
 .App-dark{
   background-color:black;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
+  color: snow;
+
+}
+
+.mainlayout{
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.logo {
+  color: red;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  0%   {color: red;}
+  25%  {color: yellow;}
+  50%  {color: blue;}
+  100% {color: green;}
 }
 
 .on{
@@ -25,7 +46,30 @@
 }
 
 .toggle_theme {
-border-radius: 25%;
+  margin-right: 30px;
+  width: 50px;
+  height: 30px;
+border-radius:40%;
+  background-color: black;
+  background-image: linear-gradient(to right, black , white);
+  transform: rotateY(180deg);
+}
+.toggle_theme:active{
+  background-color: white;
+  background-image: linear-gradient(to right,white, black);
+}
+
+.user{
+  border: 1px solid green;
+  width: 70px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+ align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+  margin-right: 500px;
 }
 
 .movie_list_container {
@@ -37,20 +81,24 @@ border-radius: 25%;
 }
 
 .genres_wrap {
-  height: 200px;
+  width: 96%;
+  height: 300px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 100px;
+  justify-content: center;
 
 }
 .genre_button {
-  margin-bottom: 10px;
+  padding: 0;
+  margin: 2px;
+  width: 120px;
+  height: 50px;
   border: 1px solid snow;
   border-radius: 25px;
   color: rosybrown;
   font-weight: 500;
+
 }
 .genre_button:hover {
   color: grey;
@@ -58,16 +106,37 @@ border-radius: 25%;
   background-color: transparent;
   transition: all 0.5s ease-in-out;
 }
+.genre_button:focus{
+  background-color: greenyellow;
+  color: azure;
+}
+.filter_button{
+
+  background-color: #4CAF50;
+  font-size: 16px;
+  color: #FFFFFF;
+  padding: 5px;
+  width: 600px;
+  height: 30px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
 .movie_image{
   width: 240px;
-  height: 240px;
+  height: 270px;
+  border-radius: 8%;
 }
 .movie_card {
   margin: 20px;
   width: 240px;
-  height:350px;
-  background-color: black;
+  height:400px;
+  background-color:dimgray;
   border: 1px solid black;
+  border-radius: 8%;
   cursor:pointer;
   transition: all 0.3s;
 display: flex;
@@ -84,4 +153,68 @@ display: flex;
 
   .pagination{
     margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .pagination button{
+    color: darkorange;
+    border: none;
+    text-align: center;
+    font-size: 48px;
+    padding: 20px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .movieInfo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 16px;
+    text-align: center;
+    background: none;
+    height: 100vh;
+    position: relative;
+  }
+
+  .movie img{
+margin-right: 30px;
+  }
+  .movie_about{
+    width: 40%;
+    font-size: 18px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .movie_title{
+    font-size: 24px;
+  }
+
+  .movie_overview {
+    width: 100%;
+    height: 100px;
+    padding: 10px 0 0 0 ;
+    text-align: center;
+    font-size: 18px;
+
+
+  }
+
+  .star-rating{
+    position: initial;
+    top: 3px;
+    right: 5px;
+    padding: 6px;
+    font-size: 22px;
+
+    border-radius: 25px;
+    color: orangered;
   }

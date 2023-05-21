@@ -3,7 +3,6 @@ import {Link, useSearchParams} from "react-router-dom";
 
 import css from './Header.module.css'
 import {SwitchTheme} from "../SwitchTheme";
-import image from '../../../src/images/image.png';
 import {useAppDispatch} from "../../hooks";
 import {movieActions} from "../../redux";
 import {UserInfo} from "../UserInfo";
@@ -16,7 +15,7 @@ const Header: FC = () => {
     // const navigate = useNavigate();
     // const {movie,searchMovie} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
-    const [query,setQuery] = useSearchParams({page:'1'});
+    // const [query,setQuery] = useSearchParams({page:'1'});
 
     // useEffect(() => {
     //     movieService.searchByValue(searchValue).then(value => value.data).then(value => dispatch(movieActions.searchByValue(value)))
@@ -48,29 +47,32 @@ const Header: FC = () => {
     return (
         <div className={css.Header}>
             <Link to={'/'}>
-            <div className={'logo'}>MOVIES</div>
+            <h2 className={'logo'}>MOVIES</h2>
             </Link>
+
+            <UserInfo/>
 
             <div className={'searchBar'}>
                 <form onSubmit={find}>
                     <input type="text" placeholder={'search movie'} name={'text'}/>
                     <button  type="submit" className={'search-button'}>&#128269; </button>
                 </form>
+            </div>
                 {/*<form onSubmit={find}>*/}
                     {/*<input type="text" value={searchValue} placeholder={'search movie'} name={'movie'} onChange={(e) =>setSearchValue(e.target.value)}/>*/}
                 {/*    <input type="text" placeholder={'search movie'} name={'title'}/>*/}
                 {/*    <button  type="submit" className={'search-button'}>&#128269; </button>*/}
 
                 {/*</form>*/}
-            </div>
+
 
             <SwitchTheme/>
 
-<UserInfo/>
 
-            <div className={'user-image'}>
-                <img src={image} alt="user"/>
-            </div>
+
+            {/*<div className={'user-image'}>*/}
+            {/*    <img src={image} alt="user"/>*/}
+            {/*</div>*/}
 
         </div>
     );

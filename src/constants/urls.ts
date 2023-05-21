@@ -15,7 +15,8 @@ const urls = {
     },
     movies:{
         movies,
-        byGenreId: (genre_id:number):string => `${movies}/${genre_id}`
+        // getAll: (page:number):string => `${movies}?page=${page}`,
+        byGenreId: (filtr:string):string => `${movies}/${filtr}`
     },
     movie:{
         byId: (id:string):string => `${movie}/${id}`
