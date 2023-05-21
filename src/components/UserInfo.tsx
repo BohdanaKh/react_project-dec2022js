@@ -17,7 +17,6 @@ const user = {
                 <span>{user.username.charAt(0)}</span>
         </button>
 
-        // <button className={'user'} type={'button'}>{user.username.charAt(0)}</button>
     );
 };
 

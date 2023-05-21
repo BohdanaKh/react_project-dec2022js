@@ -5,7 +5,7 @@ body{
 
 }
 .App-light{
-  background-color: blanchedalmond;
+  background-color: azure;
   color: black;
 }
 
@@ -181,7 +181,6 @@ display: flex;
   }
   .pagination button{
     color: silver;
-background: none;
     border: none;
     text-align: center;
     font-size: 24px;
@@ -190,6 +189,7 @@ background: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 
   }
 

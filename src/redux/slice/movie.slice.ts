@@ -3,7 +3,7 @@ import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@
 
 import {movieService} from "../../services";
 import {IError, IMovie, IPagination} from "../../interfaces";
-import {genreReducer} from "./genre.slice";
+
 
 
 
@@ -12,10 +12,8 @@ interface IState {
     movies: IMovie[],
     totalPages:number,
     errors: IError,
-    // movie:IMovie,
-    // loading:boolean,
-    // trigger :boolean
-    // movieByGenre:IMovie
+    searchValue:string;
+
 }
 
 
@@ -24,10 +22,8 @@ const initialState:IState = {
     movies:[],
     totalPages:null,
     errors: null,
-    // movie:null,
-    // loading:false,
-    // trigger: false
-    // movieByGenre:null,
+    searchValue:null
+
 }
 
 
@@ -44,27 +40,11 @@ const getAll = createAsyncThunk<IPagination<IMovie[]>,number>(
     }
 )
 
-    // (+query.get('page')+1)
-
-// const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,string>(
-//     'movieSlice/getAll',
-//     async (id,{rejectWithValue}) => {
-//         // const [query] = useSearchParams();
-//         try {
-//             const {data} = await movieService.getByGenre(id);
-//             return data
-//         } catch (e) {
-//            const err = e as AxiosError
-//             return rejectWithValue(err.response.data)
-//         }
-//     }
-// )
 
 
 const getMovieByGenre = createAsyncThunk<IPagination<IMovie[]>,{with_genres:string,page:number}>(
     'movieSlice/getAll',
     async ({with_genres,page},{rejectWithValue}) => {
-        // const [query] = useSearchParams();
         try {
             const {data} = await movieService.getByGenre(with_genres,page);
             return data
@@ -90,42 +70,15 @@ const searchByValue = createAsyncThunk<IPagination<IMovie[]>, {query:string,page
 )
 
 
-
-
-
 const slice = createSlice({
     name: 'movieSlice',
     initialState,
     reducers: {
-        // setMovies: (state, action) => {
-        //     const {page, total_pages, results} = action.payload;
-        //     state.movies = results
-        //     state.page = page
-        //     state.totalPages = total_pages
-        // },
-        // setMovieByGenre: (state, action) => {
-        //     state.movieByGenre = action.payload;
-        //     //     state.movies.filter( item=>item.genre_ids.includes(16));
-        //     //
-        // },
-        // setSearchValue: (state, action) => {
-        //     state.searchValue = action.payload;
-        // },
 
-//         setSearchMovie: (state, action) =>{
-//     // const {page, total_pages, results} = action.payload;
-//     // state.movies = results
-//     //         state.page = page
-//     //         state.totalPages = total_pages
-//     //         state.movies.push(action.payload.movie)
-//             const {page,results,total_pages} = action.payload;
-//             state.movies = results
-//             state.page = page
-//             state.totalPages = total_pages
-// },
-    //     setMovie: (state, action) => {
-    //         state.movie = action.payload
-    //     }
+        setSearchValue: (state, action) => {
+            state.searchValue = action.payload;
+        },
+
 
         setPage: (state, action) => {
             state.page = action.payload;
@@ -135,38 +88,6 @@ const slice = createSlice({
 
     extraReducers: builder =>
         builder
-            // .addCase(getAll.fulfilled, (state, action) => {
-            //     const {page,total_pages,results} = action.payload;
-            //     state.movies = results
-            //     state.page = page
-            //     state.totalPages = total_pages
-            // })
-            //
-            // .addMatcher(isFulfilled(getMovieByGenre), (state,action) => {
-            //     const {page,total_pages,results} = action.payload;
-            //     state.movies = results
-            //     state.page = page
-            //     state.totalPages = total_pages
-            //     state.errors = null
-            // })
-            //
-            //
-            // .addCase(searchByValue.fulfilled, (state, action) => {
-            //  return action.payload
-            //
-            // })
-
-
-            // .addCase(getById.fulfilled, (state, action) => {
-            //     console.log("Fetched Successfully!");
-            //     state.movie = action.payload
-                //return { ...state, movie: action.payload };
-            // })
-            // .addCase(getById.pending, (state) => {
-            //                 state.loading = true;
-            //     console.log("Loading");
-            // })
-
 
             .addMatcher(isFulfilled(getAll,getMovieByGenre,searchByValue), (state,action) => {
                 const {page,total_pages,results} = action.payload;

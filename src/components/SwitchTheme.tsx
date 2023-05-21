@@ -1,11 +1,10 @@
 import {FC} from 'react';
 
-import {useAppDispatch, useAppSelector} from "../hooks";
+import {useAppDispatch} from "../hooks";
 import {themeActions} from "../redux";
 
 
 const SwitchTheme: FC = () => {
-    const {darkMode} = useAppSelector(state => state.themeReducer);
     const dispatch = useAppDispatch();
 
 

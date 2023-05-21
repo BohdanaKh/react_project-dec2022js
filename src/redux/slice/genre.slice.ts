@@ -8,8 +8,8 @@ interface IState {
     genres: IGenre[],
     errors: IError,
     genreId:number,
-    selectedGenres:[],
-    trigger:boolean
+    selectedGenres:number[],
+    // trigger:boolean
 }
 
 const initialState:IState = {
@@ -17,7 +17,7 @@ const initialState:IState = {
     errors: null,
     genreId:null,
     selectedGenres:[],
-    trigger:false
+    // trigger:false
 }
 
 
@@ -38,13 +38,12 @@ const slice = createSlice({
     name: 'genreSlice',
     initialState,
     reducers: {
-setGenreId:(state, action) => {
+
+        setGenreId:(state, action) => {
     const id = action.payload;
-    // @ts-ignore
     state.selectedGenres = [...state.selectedGenres,id]
-    // state.selectedGenres = [state.selectedGenres.push(id)]
     console.log(state.selectedGenres);
-    state.trigger = true
+    // state.trigger = true
 },
 
     },

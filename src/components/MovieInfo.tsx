@@ -2,11 +2,10 @@ import React, {FC, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 
-import {GenreBadge} from "./GenreBadge";
 import {movieService} from "../services";
 import {IMovie} from "../interfaces";
 import welcome from '../images/welcome.png';
-import {genreActions, movieActions} from "../redux";
+import {genreActions} from "../redux";
 import {useAppDispatch} from "../hooks";
 
 
@@ -30,7 +29,6 @@ const MovieInfo: FC = () => {
         title: "",
         vote_average: 0
     });
-    // const {title, genres, adult, vote_average, overview, release_date, runtime} = useAppSelector(state => state.movieReducer.movie);
     const {title, poster_path,genres, adult, vote_average, overview, release_date, runtime} = movie;
     //
     const dispatch = useAppDispatch();
@@ -41,23 +39,9 @@ const MovieInfo: FC = () => {
         movieService.getById(id).then(value => value.data).then(value => setMovie(value))
     }, [id])
 
-    //
 
-
-    // useEffect( () => {
-    //      dispatch(movieActions.getById({id}))
-    // }, [id])
-
-
-
-    // const posterPath = movie.poster_path;
     return (
-        // <div className="movie-section">
-        //     {Object.keys(movie).length === 0 ? (
-        //         <div>...Loading</div>
-        //     ) : (
-        // <div>
-        //     { movie ?
+
                 <div className={'movieInfo'}>
 
                     <img width={400} height={500} src={{poster_path}? `https://image.tmdb.org/t/p/w500${poster_path}` : welcome} alt={movie.title}/>
@@ -67,7 +51,7 @@ const MovieInfo: FC = () => {
 
                 <Link to={'/'}>
                         {
-                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(movieActions.getMovieByGenre({with_genres:genre.id.toString(),page:1}))}>{genre.name}</button>)
+                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(genre.id))}>{genre.name}</button>)
                         }
                 </Link>
 
@@ -89,8 +73,7 @@ const MovieInfo: FC = () => {
                     </div>
                 </div>
 
-        //     )}
-        // </div>
+
     );
 };
 

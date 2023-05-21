@@ -8,15 +8,13 @@ class MovieService {
     getAll(page:number):IRes<IPagination<IMovie[]>> {
 return axiosService.get(urls.movies.movies, {params:{page}})
 };
-//     getAll(page:number):IRes<IPagination<IMovie[]>> {
-//         return axiosService.get(urls.movies.getAll(page))
-//     };
+
 
 getById (id:string):IRes<IMovie> {
      return axiosService.get(urls.movie.byId(id))
     };
 
-    getByGenre(with_genres: string,page:number):IRes<IPagination<IMovie[]>> {
+getByGenre(with_genres: string,page:number):IRes<IPagination<IMovie[]>> {
         return axiosService.get(urls.movies.movies, {params: {with_genres,page}})
     }
 

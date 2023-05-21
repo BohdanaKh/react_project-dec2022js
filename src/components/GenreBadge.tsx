@@ -13,13 +13,11 @@ interface IProps {
 
 
 const GenreBadge: FC<IProps>= ({genre}) => {
-    // const {genre} = useAppSelector(state => state.genreReducer);
-    // const {movieByGenre} = useAppSelector(state => state.movieReducer);
+
 
     const {id,name} = genre;
     const dispatch = useAppDispatch();
-    // const navigate = useNavigate();
-    // const [query,setQuery] = useSearchParams({page:'1'});
+
 
     return (
         <div>

@@ -7,26 +7,20 @@ import {movieActions} from "../redux";
 
 
 const MoviePagination: FC = () => {
-    const {page,totalPages} = useAppSelector(state => state.movieReducer);
-// const dispatch = useAppDispatch();
+    let {page,totalPages} = useAppSelector(state => state.movieReducer);
+const dispatch = useAppDispatch();
 const [,setQuery] = useSearchParams();
 
-const prev = () => {
-  setQuery(prev1 => ({...prev1,page:+prev1.get('page')-1}))
-}
+
+    const prev = () => {
+        setQuery(prev1 => ({...prev1,page:+prev1.get('page')-1}))
+     dispatch(movieActions.setPage(page-1))
+    }
 
     const next = () => {
         setQuery(prev1 => ({...prev1,page:+prev1.get('page')+1}))
+     dispatch(movieActions.setPage(page+1))
     }
-
-    //
-    // const prev = () => {
-    //     dispatch(movieActions.setPage(page-1))
-    // }
-    //
-    // const next = () => {
-    //     dispatch(movieActions.setPage(page+1))
-    // }
 
 
 
@@ -34,6 +28,7 @@ const prev = () => {
     return (
         <div className={'pagination'}>
             <button disabled={(page===1)} onClick={prev}>&#10094;&#10094;</button>
+            <div style={{fontSize:16,marginLeft:10,marginRight:10}}>{page}/{totalPages}</div>
             <button disabled={(page===totalPages)} onClick={next}>&#10095;&#10095;</button>
         </div>
     );
