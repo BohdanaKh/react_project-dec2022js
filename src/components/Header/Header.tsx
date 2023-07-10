@@ -1,13 +1,14 @@
 import {FC} from 'react';
 import {Link} from "react-router-dom";
-import {SubmitHandler} from "react-hook-form";
 
 import css from './Header.module.css'
 import {SwitchTheme} from "../SwitchTheme";
 import {useAppDispatch} from "../../hooks";
-import {movieActions} from "../../redux";
 import {UserInfo} from "../UserInfo";
 import banner from '../../images/banner.jpg';
+import {SubmitHandler} from "react-hook-form";
+import {movieActions} from "../../redux";
+
 
 
 
@@ -23,6 +24,7 @@ const Header: FC = () => {
         dispatch(movieActions.setSearchValue(text));
 
     }
+
 
 
 

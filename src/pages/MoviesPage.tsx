@@ -16,9 +16,7 @@ const MoviesPage:FC = () => {
     //
     useEffect(() => {
         dispatch(genreActions.getAll())
-    },[])
-
-    console.log(genres);
+    },[dispatch])
 
 
     const with_genres:string = selectedGenres.join(',');

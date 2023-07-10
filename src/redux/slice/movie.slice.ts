@@ -95,9 +95,7 @@ const slice = createSlice({
                 state.page = page
                 state.totalPages = total_pages
                 state.errors = null
-                console.log(state.movies);
             })
-
 
             .addMatcher(isFulfilled(), state => {
                 state.errors = null

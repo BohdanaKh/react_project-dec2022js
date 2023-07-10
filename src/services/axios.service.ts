@@ -4,11 +4,8 @@ import {baseURL, posterBaseURL} from '../constants';
 
 
 
-
-
 const axiosService = axios.create({baseURL});
-// @ts-ignore
-const posterAxiosService = axios.create({posterBaseURL});
+const posterAxiosService = axios.create({baseURL:posterBaseURL});
 
 
 axiosService.interceptors.request.use(config => {

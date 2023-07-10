@@ -22,7 +22,7 @@ const MoviesList: FC = () => {
 
     useEffect(() => {
         dispatch(movieActions.getAll(page))
-    },[dispatch])
+    },[dispatch,page])
     //
     useEffect(() => {
     if(selectedGenres){
