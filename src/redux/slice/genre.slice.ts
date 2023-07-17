@@ -1,28 +1,30 @@
 import {AxiosError} from "axios";
 import {createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue} from "@reduxjs/toolkit";
 
-import {IError, IGenre,IGenres} from "../../interfaces";
+import {IError, IGenre, IGenres} from "../../interfaces";
 import {genresService} from "../../services";
 
 interface IState {
     genres: IGenre[],
     errors: IError,
     genreId:number,
-    selectedGenres:number[],
+    // selectedGenres:number[],
     // trigger:boolean
 }
 
 const initialState:IState = {
-    genres: [],
+    genres:[],
     errors: null,
     genreId:null,
-    selectedGenres:[],
+    // selectedGenres:[],
     // trigger:false
 }
 
 
-// @ts-ignore
-const getAll = createAsyncThunk<IGenres<IGenre[]>,void>('genreSlice/getAll', async (_,{rejectWithValue}) => {
+
+const getAll = createAsyncThunk<IGenres<IGenre[]>,void>(
+    'genreSlice/getAll',
+    async (_,{rejectWithValue}) => {
     try {
         const {data} = await genresService.getAll();
         return data
@@ -39,19 +41,20 @@ const slice = createSlice({
     initialState,
     reducers: {
 
-        setGenreId:(state, action) => {
-    const id = action.payload;
-    state.selectedGenres = [...state.selectedGenres,id]
-    console.log(state.selectedGenres);
-    // state.trigger = true
-},
+//         setGenreId:(state, action) => {
+//     const id = action.payload;
+//     state.selectedGenres = [...state.selectedGenres,id]
+//     console.log(state.selectedGenres);
+//     // state.trigger = true
+// },
 
     },
     extraReducers: builder =>
         builder
             .addCase(getAll.fulfilled, (state, action) => {
                 const {genres} = action.payload;
-             state.genres = genres;
+                state.genres = genres
+
             })
 
             .addMatcher(isFulfilled(), state => {

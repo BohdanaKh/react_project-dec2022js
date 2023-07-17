@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {movieService} from "../services";
 import {IMovie} from "../interfaces";
 import welcome from '../images/welcome.png';
-import {genreActions} from "../redux";
+import {genreActions, movieActions} from "../redux";
 import {useAppDispatch} from "../hooks";
 
 
@@ -51,7 +51,8 @@ const MovieInfo: FC = () => {
 
                 <Link to={'/'}>
                         {
-                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(genre.id))}>{genre.name}</button>)
+                            // genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(genre.id))}>{genre.name}</button>)
+                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(movieActions.setGenreId(genre.id))}>{genre.name}</button>)
                         }
                 </Link>
 

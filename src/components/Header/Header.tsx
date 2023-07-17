@@ -18,12 +18,13 @@ const Header: FC = () => {
     const dispatch = useAppDispatch();
 
 
-    const find:SubmitHandler<any> = async (e) => {
+    const find:SubmitHandler<any> = (e) => {
         e.preventDefault();
         const text = e.target.text.value;
         dispatch(movieActions.setSearchValue(text));
-
+        document.forms[0].reset();
     }
+
 
 
 
@@ -49,6 +50,7 @@ const Header: FC = () => {
                     <input type="text" placeholder={'search movie'} name={'text'}/>
                     <button  type="submit" className={'search-button'}>&#128269; </button>
                 </form>
+
 
             </div>
         </div>

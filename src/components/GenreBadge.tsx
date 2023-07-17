@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
 import {useAppDispatch} from "../hooks";
-import {genreActions} from "../redux";
+import {movieActions} from "../redux";
 import {IGenre} from "../interfaces";
 
 
@@ -21,7 +21,9 @@ const GenreBadge: FC<IProps>= ({genre}) => {
 
     return (
         <div>
-<button type={'button'} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(id))}>{name}</button>
+{/*<button type={'button'} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(id))}>{name}</button>*/}
+<button type={'button'} className={'genre_button'} onClick={() =>dispatch(movieActions.setGenreId(id))}>{name}</button>
+
         </div>
     );
 };

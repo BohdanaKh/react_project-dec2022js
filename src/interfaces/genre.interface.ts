@@ -4,6 +4,6 @@ export interface IGenre{
     name: string
 }
 
-export interface IGenres<T> {
-    genres:IGenre[]
+export interface IGenres<K> {
+    genres:K
 }
