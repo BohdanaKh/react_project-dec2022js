@@ -16,7 +16,8 @@ interface IState {
     selectedGenres:number[],
     trigger:boolean,
     page:number,
-    query:string
+    query:string,
+    genresArray:number[]
 
 
 }
@@ -31,7 +32,8 @@ const initialState:IState = {
     selectedGenres:[],
     trigger:false,
     page:1,
-    query:null
+    query:null,
+    genresArray:[]
 
 }
 
@@ -141,7 +143,12 @@ const slice = createSlice({
 
         setGenreId:(state, action) => {
             const id = action.payload;
-            state.selectedGenres =[...state.selectedGenres,id]
+            state.genresArray =[...state.genresArray,id]
+
+        },
+        setSelectedGenres:(state, action) => {
+            // const id = action.payload;
+            state.selectedGenres =state.genresArray
             console.log(state.selectedGenres);
         },
 
@@ -150,9 +157,12 @@ const slice = createSlice({
     extraReducers: builder =>
         builder
 
-            .addCase(getMovieByGenre.fulfilled, state => {
-                state.selectedGenres = []
-            })
+            // .addCase(getMovieByGenre.fulfilled, state => {
+            //     state.genresArray = []
+            //         state.selectedGenres=[]
+            //     console.log(state.selectedGenres);
+            //     console.log(state.genresArray);
+            // })
 
             .addMatcher(isFulfilled(getAll,getMovieByGenre,searchByValue), (state,action) => {
                 const {page,total_pages,results} = action.payload;

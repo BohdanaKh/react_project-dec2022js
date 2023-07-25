@@ -14,7 +14,7 @@ const MoviesPage:FC = () => {
 
     // let {genres,selectedGenres} = useAppSelector(state => state.genreReducer);
     let {genres} = useAppSelector(state => state.genreReducer);
-    let {selectedGenres,page,query} = useAppSelector(state => state.movieReducer)
+    let {selectedGenres,page,query, genresArray} = useAppSelector(state => state.movieReducer)
     const dispatch = useAppDispatch();
     // const [query,setQuery] = useState(null);
 
@@ -24,12 +24,12 @@ const MoviesPage:FC = () => {
         dispatch(genreActions.getAll())
     },[dispatch])
 
-    const with_genres:string = selectedGenres.join(',');
-    console.log(with_genres);
+    // const with_genres:string = selectedGenres.join(',');
+    // console.log(with_genres);
 
     const foo = async () =>{
-        await dispatch(movieActions.getMovieByGenre({with_genres,page}))
-        dispatch(movieActions.setQuery( with_genres));
+        await dispatch(movieActions.setSelectedGenres(genresArray))
+        // dispatch(movieActions.setQuery( with_genres));
     }
 
 

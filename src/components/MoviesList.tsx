@@ -13,9 +13,7 @@ const MoviesList: FC = () => {
     const dispatch = useAppDispatch();
     // const [query, setQuery] = useState(null);
     const [URLSearchParams,setURLSearchParams] = useSearchParams();
-    console.log(URLSearchParams);
-
-
+    console.log(selectedGenres);
     //
     useEffect(() => {
         setURLSearchParams(prev => ({...prev, page: page}))
@@ -58,10 +56,10 @@ const MoviesList: FC = () => {
 
 
     useEffect(() => {
-    if(selectedGenres.length > 0){
+    if(selectedGenres.length>0){
         dispatch(movieActions.setQuery(selectedGenres))
             dispatch(movieActions.getMovieByGenre({with_genres:selectedGenres.toString(), page:page}))}
-    }, [page, dispatch])
+    }, [selectedGenres,page, dispatch])
 
 
     return (

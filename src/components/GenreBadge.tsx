@@ -17,11 +17,12 @@ const GenreBadge: FC<IProps>= ({genre}) => {
 
     const {id,name} = genre;
     const dispatch = useAppDispatch();
+    // const genresArray = [];
 
 
     return (
         <div>
-{/*<button type={'button'} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(id))}>{name}</button>*/}
+{/*<button type={'button'} className={'genre_button'} onClick={() =>genresArray.push(id)}>{name}</button>*/}
 <button type={'button'} className={'genre_button'} onClick={() =>dispatch(movieActions.setGenreId(id))}>{name}</button>
 
         </div>

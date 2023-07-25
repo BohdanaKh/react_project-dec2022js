@@ -6,7 +6,7 @@ import {movieService} from "../services";
 import {IMovie} from "../interfaces";
 import welcome from '../images/welcome.png';
 import {genreActions, movieActions} from "../redux";
-import {useAppDispatch} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
 
 
 const MovieInfo: FC = () => {
@@ -31,6 +31,7 @@ const MovieInfo: FC = () => {
     });
     const {title, poster_path,genres, adult, vote_average, overview, release_date, runtime} = movie;
     //
+    const {page} = useAppSelector(state => state.movieReducer);
     const dispatch = useAppDispatch();
     console.log(id);
 
@@ -52,7 +53,7 @@ const MovieInfo: FC = () => {
                 <Link to={'/'}>
                         {
                             // genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(genreActions.setGenreId(genre.id))}>{genre.name}</button>)
-                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(movieActions.setGenreId(genre.id))}>{genre.name}</button>)
+                            genres.map((genre) => <button type={'button'} key={genre.id} className={'genre_button'} onClick={() =>dispatch(movieActions.getMovieByGenre({with_genres:genre.id.toString(), page:page}))}>{genre.name}</button>)
                         }
                 </Link>
 
